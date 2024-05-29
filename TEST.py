@@ -11,7 +11,7 @@ results = {}
 model = YOLO("C:/Users/Admin/Desktop/New folder/best.pt")
 
 #read image
-image = cv2.imread("C:/Users/Admin/Desktop/New folder/71.jpg")
+image = cv2.imread("C:/Users/Admin/Desktop/New folder/image/7.jpg")
 detects = model(image)[0]
 detects_ = []
 
@@ -27,8 +27,15 @@ for detect in detects.boxes.data.tolist():
    
     # modify the image  
     blurred = cv2.GaussianBlur(digit_gray, (5, 5), 0)
+
+    # Adjusting contrast
+    alpha = 3.5  # Hệ số tăng cường độ tương phản (lớn hơn 1 để tăng cường độ tương phản)
+    beta = -200   # Giá trị điều chỉnh độ sáng (giá trị âm để giảm cường độ pixel sáng)
+    adjusted_image = cv2.convertScaleAbs(blurred, alpha=alpha, beta=beta)
+    cv2.imshow('adjusted',adjusted_image)
+
     cv2.imshow("blurred", blurred)
-    edged = cv2.Canny(blurred, 25, 85, 255)
+    edged = cv2.Canny(adjusted_image, 45, 220, 255)
     cv2.imshow("edged", edged)
     _, digit_thresh = cv2.threshold(edged, 70, 255, cv2.THRESH_BINARY_INV)
     
@@ -37,7 +44,7 @@ for detect in detects.boxes.data.tolist():
 
 
     # read digit numbers
-    digit_number, digit_score = read_digit(digit_thresh)
+    digit_number, digit_score = read_digit(adjusted_image)
     print(f"Digit Number: {digit_number}, Digit Score: {digit_score}")
     
     # Display digit number on image
