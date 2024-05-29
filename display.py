@@ -33,6 +33,7 @@ def display_digit_number(image, x1, y1, x2, y2, digit_number):
     image = cv2.putText(image, digit_number, org, font, font_scale, color, thickness, cv2.LINE_AA)
     return image
 
+
 # -------------------------------------- ORIGINAL VERSION --------------------------------
 # def draw_border(img, top_left, bottom_right, color=(0, 255, 0), thickness=10, line_length_x=200, line_length_y=200):
 #     x1, y1 = top_left
