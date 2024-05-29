@@ -6,11 +6,13 @@ reader = easyocr.Reader(['en'], gpu=False)
 
 # Mapping dictionaries for character conversion
 dict_char_to_int = {'O': '0',
+                    'o': '0',
                     'I': '1',
                     'J': '3',
                     'A': '4',
                     'G': '6',
-                    'S': '5'}
+                    'S': '5',
+                    'g': '9'}
 
 dict_int_to_char = {'0': 'O',
                     '1': 'I',
