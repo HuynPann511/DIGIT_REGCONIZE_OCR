@@ -3,6 +3,7 @@ import cv2
 import torch
 import imutils
 from utils import read_digit, write_csv
+from display import display_digit_number
 
 results = {}
 
@@ -24,7 +25,7 @@ for detect in detects.boxes.data.tolist():
     cv2.imshow("crop",digit)
     digit_gray = cv2.cvtColor(digit, cv2.COLOR_BGR2GRAY)
    
-   
+    # modify the image  
     blurred = cv2.GaussianBlur(digit_gray, (5, 5), 0)
     cv2.imshow("blurred", blurred)
     edged = cv2.Canny(blurred, 25, 85, 255)
@@ -34,10 +35,16 @@ for detect in detects.boxes.data.tolist():
     # digit_thresh = imutils.resize(digit_thresh, height=55)
     cv2.imshow("after_cut", digit_thresh)
 
+
     # read digit numbers
     digit_number, digit_score = read_digit(digit_thresh)
     print(f"Digit Number: {digit_number}, Digit Score: {digit_score}")
     
+    # Display digit number on image
+    if digit_number is not None:
+      image = display_digit_number(image, x1, y1, x2, y2, digit_number)
+    cv2.imshow("original", image)
+
     # Take the result into a dictionary (var)
     if digit_number is not None:
       results[score] = {'Digital': {'bbox':[x1, y1, x2, y2],
