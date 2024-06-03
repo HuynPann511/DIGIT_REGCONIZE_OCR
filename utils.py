@@ -102,27 +102,6 @@ def digit_format(text):
         return False
 
 
-# def format_license(text):
-#     """
-#     Format the license plate text by converting characters using the mapping dictionaries.
-
-#     Args:
-#         text (str): License plate text.
-
-#     Returns:
-#         str: Formatted license plate text.
-#     """
-#     license_plate_ = ''
-#     mapping = {0: dict_int_to_char, 1: dict_int_to_char, 4: dict_int_to_char, 5: dict_int_to_char, 6: dict_int_to_char,
-#                2: dict_char_to_int, 3: dict_char_to_int}
-#     for j in [0, 1, 2, 3, 4, 5, 6]:
-#         if text[j] in mapping[j].keys():
-#             license_plate_ += mapping[j][text[j]]
-#         else:
-#             license_plate_ += text[j]
-
-#     return license_plate_
-
 
 def read_digit(digit_thresh):
     """
@@ -150,3 +129,4 @@ def read_digit(digit_thresh):
             return text, score
 
     return None, None
+

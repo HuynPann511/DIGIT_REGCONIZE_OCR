@@ -1,23 +1,24 @@
 from ultralytics import YOLO
 import cv2
-import torch
-import imutils
+# import torch
+# import imutils
 from utils import read_digit, write_csv
 from display import display_digit_number
 
 results = {}
 
 #load models
-model = YOLO("C:/Users/Admin/Desktop/New folder/best.pt")
+model = YOLO("best.pt")
 
 #read image
-image = cv2.imread("C:/Users/Admin/Desktop/New folder/image/7.jpg")
+image = cv2.imread("E:/DO AN 1/PROJECT/DIGIT_REGCONIZE/DIGIT_REGCONIZE_OCR/image/50.jpg")
+cv2.imshow("anh_goc", image)
 detects = model(image)[0]
 detects_ = []
 
 for detect in detects.boxes.data.tolist():
-   x1, y1, x2, y2, score, class_id = detect
-   if (class_id == 0): # class_id of Digital is 0
+  x1, y1, x2, y2, score, class_id = detect
+  if (class_id == 0): # class_id of Digital is 0
     detects_.append([x1, y1, x2, y2, score])
 
     # crop the digit of digital
@@ -59,7 +60,7 @@ for detect in detects.boxes.data.tolist():
                                      'bbox score': digit_score }}
     
 # write the results to file exel (csv file)
-write_csv(results, 'C:/Users/Admin/Desktop/New folder/test.csv')
+    # write_csv(results, 'C:/Users/Admin/Desktop/New folder/test.csv')
 
-cv2.waitKey(0)
+cv2.waitKey(0)  
 cv2.destroyAllWindows()
